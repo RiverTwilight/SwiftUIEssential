@@ -1,27 +1,29 @@
 //
-//  ContentView.swift
+//  LandmarkDetial.swift
 //  Landmarks
 //
-//  Created by René Wang on 2024/1/6.
+//  Created by René Wang on 2024/1/7.
 //
 
 import SwiftUI
 
-struct ContentView: View {
+struct LandmarkDetial: View {
+    var landmark: Landmark
+    
     var body: some View {
-        VStack {
-            MapView()
+        ScrollView {
+            MapView(coordinate: landmark.locationCoordinate)
                 .frame(height: 300)
             
-            CircleImage()
+            CircleImage(image: landmark.image)
                 .offset(y: -130)
                 .padding(.bottom, -130)
             
             VStack(alignment: .leading) {
-                Text("Turtle Rock")
+                Text(landmark.name)
                     .font(.title)
                 HStack {
-                    Text("Joshua Tree National Park")
+                    Text(landmark.park)
                     Spacer()
                     Text("California")
                 }
@@ -34,12 +36,12 @@ struct ContentView: View {
                     .font(.title2)
             }
             .padding()
-            
-            Spacer()
         }
+        .navigationTitle(landmark.name)
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
 #Preview {
-    ContentView()
+    LandmarkDetial(landmark: landmarks[1])
 }
